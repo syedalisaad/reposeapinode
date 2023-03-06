@@ -1,0 +1,31 @@
+[
+  {
+    "_id": "6f2cd7d0-36cd-45e9-89c8-39c4f60df1b0",
+    "colName": "ReposeApi",
+    "created": "2022-06-07T22:39:50.587Z",
+    "sortNum": 10000,
+    "folders": [
+      {
+        "_id": "3aa53ddf-5079-4553-a5e7-f53cb03723b0",
+        "name": "Auth",
+        "containerId": "",
+        "created": "2022-06-07T22:39:50.659Z",
+        "sortNum": 10000
+      },
+      {
+        "_id": "abfdf4a7-73b6-4100-8479-6b474fc8991f",
+        "name": "Branches",
+        "containerId": "",
+        "created": "2022-06-07T22:39:50.668Z",
+        "sortNum": 20000
+      },
+      {
+        "_id": "9044d0ad-0720-4973-ac87-a744df4956e4",
+        "name": "Users",
+        "containerId": "",
+        "created": "2022-06-07T22:39:50.669Z",
+        "sortNum": 30000
+      }
+    ]
+  }
+]

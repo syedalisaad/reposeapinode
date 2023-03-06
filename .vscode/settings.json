@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/577bcc34-a080-4239-83f7-cfe1391018c3/resourceGroups/Repose/providers/Microsoft.Web/sites/ReposeAPI2",
+    "appService.deploySubpath": "."
+}
