@@ -22,7 +22,6 @@ async function getBranches(prefix) {
     } finally {
     }
 }
-
 async function getSections(prefix, garden) {
     const connection = await db.getConnection();
     const request = await connection.request();
@@ -162,28 +161,28 @@ async function getGrave(prefix, params) {
             var queryString = `select * from ${p_customer} where customer_key in(${customer_keys})`;
             const result2 = await request2.query(queryString);
             
-            console.log(result2)
+            console.log(result2,'test 123')
 
             for (let i = 0; i < result2.recordset.length; i++) {
                 let burial = result2.recordset[i];
                 let names = '';
                 if (burial.burial_title != null) {
-                    names += burial.id+burial.burial_title + ' ';
+                    names += burial.id+' '+burial.burial_title + ' ';
                 }
                 if (burial.burial_first_name != null) {
-                    names += burial.id+burial.burial_first_name + ' ';
+                    names += burial.id+' '+burial.burial_first_name + ' ';
                 }
                 if (burial.burial_maiden_name != null) {
-                    names += burial.id+burial.burial_maiden_name + ' ';
+                    names += burial.id+' '+burial.burial_maiden_name + ' ';
                 }
                 if (burial.burial_middle_names != null) {
-                    names += burial.id+burial.burial_middle_names + ' ';
+                    names += burial.id+' '+burial.burial_middle_names + ' ';
                 }
                 if (burial.burial_last_name != null) {
-                    names += burial.id+burial.burial_last_name + ' ';
+                    names += burial.id+' '+burial.burial_last_name + ' ';
                 }
                 if (burial.burial_suffix != null) {
-                    names += burial.id+burial.burial_suffix + ' ';
+                    names += burial.id+' '+burial.burial_suffix + ' ';
                 }
                 // if (result2.recordset.length - 1 !== result2.recordset.indexOf(result2.recordset[i])) {
                 //     names += ' / ';
@@ -236,22 +235,22 @@ async function graveByKey(prefix, params) {
                 let burial = result2.recordset[i];
                 let names = '';
                 if (burial.burial_title != null) {
-                    names += burial.id+burial.burial_title + ' ';
+                    names += burial.id+' '+burial.burial_title + ' ';
                 }
                 if (burial.burial_first_name != null) {
-                    names += burial.id+burial.burial_first_name + ' ';
+                    names += burial.id+' '+burial.burial_first_name + ' ';
                 }
                 if (burial.burial_maiden_name != null) {
-                    names += burial.id+burial.burial_maiden_name + ' ';
+                    names += burial.id+' '+burial.burial_maiden_name + ' ';
                 }
                 if (burial.burial_middle_names != null) {
-                    names += burial.id+burial.burial_middle_names + ' ';
+                    names += burial.id+' '+burial.burial_middle_names + ' ';
                 }
                 if (burial.burial_last_name != null) {
-                    names += burial.id+burial.burial_last_name + ' ';
+                    names += burial.id+' '+burial.burial_last_name + ' ';
                 }
                 if (burial.burial_suffix != null) {
-                    names += burial.id+burial.burial_suffix + ' ';
+                    names += burial.id+' '+burial.burial_suffix + ' ';
                 }
                 // if (result2.recordset.length - 1 !== result2.recordset.indexOf(result2.recordset[i])) {
                 //     names += ' / ';
