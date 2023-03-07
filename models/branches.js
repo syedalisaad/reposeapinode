@@ -22,6 +22,7 @@ async function getBranches(prefix) {
     } finally {
     }
 }
+
 async function getSections(prefix, garden) {
     const connection = await db.getConnection();
     const request = await connection.request();
