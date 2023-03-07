@@ -52,5 +52,5 @@ jobs:
         with:
           app-name: 'ReposeAPINode'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_EEDA028CABC0431B8B30455860ACCC3F }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_1F5578636BAB4C91840D77B698502A36 }}
           package: .
