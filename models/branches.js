@@ -47,9 +47,9 @@ async function getLots(prefix, garden, section) {
     const connection = await db.getConnection();
     const request = await connection.request();
     const p_lotinfo = prefix + "_lotinfo";
-    var queryString = "select distinct lot from " + p_lotinfo + " where garden=@gardenName and section=@sectionName  order by lot asc";
+    // var queryString = "select distinct lot from " + p_lotinfo + " where garden=@gardenName and section=@sectionName ORDER BY lot ASC";
 
-    // var queryString = "select distinct lot from " + p_lotinfo + " where garden=@gardenName and section=@sectionName";
+    var queryString = "select distinct lot from " + p_lotinfo + " where garden=@gardenName and section=@sectionName";
     try {
         request.input("gardenName", db.sql.VarChar, garden);
         request.input("sectionName", db.sql.VarChar, section);
