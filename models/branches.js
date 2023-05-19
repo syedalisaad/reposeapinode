@@ -49,10 +49,11 @@ async function getLots(prefix, garden, section,row_location) {
     const p_lotinfo = prefix + "_lotinfo";
     // var queryString = "select distinct lot from " + p_lotinfo + " where garden=@gardenName and section=@sectionName ORDER BY lot ASC";
 
-    var queryString = "select distinct lot from " + p_lotinfo + " where garden=@gardenName and section=@sectionName and (location  like '%" + row_location + "%'  OR location like '%both%')";
+    var queryString = "select distinct lot from " + p_lotinfo + " where garden=@gardenName and section=@sectionName and (location  like '%@rowLocation%'  OR location like '%both%')";
     try {
         request.input("gardenName", db.sql.VarChar, garden);
         request.input("sectionName", db.sql.VarChar, section);
+        request.input("rowLocation", db.sql.VarChar, section);
         const result = await request.query(queryString);
         await db.closeConnection(connection);
         if (result.recordset.length === 0) {
