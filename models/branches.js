@@ -43,13 +43,13 @@ async function getSections(prefix, garden) {
     } finally {
     }
 }
-async function getLots(prefix, garden, section) {
+async function getLots(prefix, garden, section,row_location) {
     const connection = await db.getConnection();
     const request = await connection.request();
     const p_lotinfo = prefix + "_lotinfo";
     // var queryString = "select distinct lot from " + p_lotinfo + " where garden=@gardenName and section=@sectionName ORDER BY lot ASC";
 
-    var queryString = "select distinct lot from " + p_lotinfo + " where garden=@gardenName and section=@sectionName";
+    var queryString = "select distinct lot from " + p_lotinfo + " where garden=@gardenName and section=@sectionName and (location  like '%" + row_location + "%'  OR location like '%both%')";
     try {
         request.input("gardenName", db.sql.VarChar, garden);
         request.input("sectionName", db.sql.VarChar, section);
@@ -67,21 +67,22 @@ async function getLots(prefix, garden, section) {
     } finally {
     }
 }
-async function getLot(prefix, garden, section, lot) {
+async function getLot(prefix, garden, section, lot,row_location) {
     const connection = await db.getConnection();
     const request = await connection.request();
     const p_lotinfo = prefix + "_lotinfo";
     const p_grave = prefix + "_grave";
     var queryString = `select 
     (select MIN(${p_grave}.synchronized_grave_number) as min_synchronized_grave_number from ${p_grave} where ${p_grave}.garden = @gardenName and ${p_grave}.section = @sectionName
-    and ${p_grave}.lot_number = @lotNo) as min_synchronized_grave_number ,
+    and ${p_grave}.lot_number = @lotNo and location_grave= @rowLocation) as min_synchronized_grave_number,
     (select MAX(${p_grave}.synchronized_grave_number) as max_synchronized_grave_number from ${p_grave} where ${p_grave}.garden = @gardenName and ${p_grave}.section = @sectionName
-    and ${p_grave}.lot_number = @lotNo) as max_synchronized_grave_number,
-    ${p_lotinfo}.* from ${p_lotinfo} where garden=@gardenName and section=@sectionName and lot=@lotNo`;
+    and ${p_grave}.lot_number = @lotNo  and location_grave= @rowLocation) as max_synchronized_grave_number,
+    ${p_lotinfo}.* from ${p_lotinfo} where garden=@gardenName and section=@sectionName and lot=@lotNo  `;
     try {
         request.input("gardenName", db.sql.VarChar, garden);
         request.input("sectionName", db.sql.VarChar, section);
         request.input("lotNo", db.sql.VarChar, lot);
+        request.input("rowLocation", db.sql.VarChar, row_location);
         const result = await request.query(queryString);
         await db.closeConnection(connection);
         if (result.recordset.length === 0) {
@@ -89,7 +90,7 @@ async function getLot(prefix, garden, section, lot) {
             return { error: 404 };
         }
         let res1 = await getGravesNotCoordinates(prefix, garden, section, lot);
-        let res2 = await getSyncNumByLot(prefix, garden, section, lot);
+        let res2 = await getSyncNumByLot(prefix, garden, section, lot,row_location);
         return { lots: result.recordset[0], grave_keys: res1.data, grave_num: res2.grave_num, syns_numbers: res2.data };
     } catch (e) {
         // Bad request because the id was likely invalid
@@ -98,16 +99,17 @@ async function getLot(prefix, garden, section, lot) {
     } finally {
     }
 }
-async function getSyncNumByLot(prefix, garden, section, lot) {
+async function getSyncNumByLot(prefix, garden, section, lot,row_location) {
     const connection = await db.getConnection();
     const request = await connection.request();
     const p_grave = prefix + "_grave";
     var queryString = `select * from ${p_grave}
-    where garden=@gardenName and section=@sectionName and lot_number=@lotNo  order by grave_number`;
+    where garden=@gardenName and section=@sectionName and lot_number=@lotNo and location_grave= @rowLocation order by grave_number`;
     try {
         request.input("gardenName", db.sql.VarChar, garden);
         request.input("sectionName", db.sql.VarChar, section);
         request.input("lotNo", db.sql.VarChar, lot);
+        request.input("rowLocation", db.sql.VarChar, row_location);
         const result = await request.query(queryString);
         await db.closeConnection(connection);
         if (result.recordset.length === 0) {

@@ -23,7 +23,7 @@ router.post('/:prefix/sections', [loginMiddleware.checkAuth], async function(req
 });
 
 router.post('/:prefix/lots', [loginMiddleware.checkAuth], async function(req, res, next) {
-    let result = await branchModel.getLots(req.params.prefix, req.body.garden, req.body.section)
+    let result = await branchModel.getLots(req.params.prefix, req.body.garden, req.body.section, req.body.row_location)
     if (result.error) {
         res.sendStatus(result.error);
     }else{
@@ -32,7 +32,7 @@ router.post('/:prefix/lots', [loginMiddleware.checkAuth], async function(req, re
 });
 //getting lot info
 router.post('/:prefix/lot', [loginMiddleware.checkAuth], async function(req, res, next) {
-    let result = await branchModel.getLot(req.params.prefix, req.body.garden, req.body.section, req.body.lot)
+    let result = await branchModel.getLot(req.params.prefix, req.body.garden, req.body.section, req.body.lot, req.body.row_location)
     if (result.error) {
         res.sendStatus(result.error);
     }else{
