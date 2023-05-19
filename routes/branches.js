@@ -91,6 +91,7 @@ router.post('/:prefix/grave', [loginMiddleware.checkAuth], async function(req, r
     if (result.error) {
         res.sendStatus(result.error);
     }else{
+        
         res.json(result.lots);
     }
 });
