@@ -49,7 +49,7 @@ async function getLots(prefix, garden, section,row_location) {
     const p_lotinfo = prefix + "_lotinfo";
     // var queryString = "select distinct lot from " + p_lotinfo + " where garden=@gardenName and section=@sectionName ORDER BY lot ASC";
 
-    var queryString = "select distinct lot from " + p_lotinfo + " where garden=@gardenName and section=@sectionName and (location  like '%@rowLocation%'  OR location like '%both%')";
+    var queryString = "select distinct lot from " + p_lotinfo + " where garden=@gardenName and section=@sectionName and (location  like '@rowLocation'  OR location like '%both%')";
     try {
         request.input("gardenName", db.sql.VarChar, garden);
         request.input("sectionName", db.sql.VarChar, section);
