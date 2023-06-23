@@ -53,7 +53,7 @@ async function getLots(prefix, garden, section,row_location) {
     try {
         request.input("gardenName", db.sql.VarChar, garden);
         request.input("sectionName", db.sql.VarChar, section);
-        request.input("rowLocation", db.sql.VarChar, section);
+        request.input("rowLocation", db.sql.VarChar, row_location);
         const result = await request.query(queryString);
         await db.closeConnection(connection);
         if (result.recordset.length === 0) {
